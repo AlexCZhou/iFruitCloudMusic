@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../lib/iconfont.css">
+
+    <title> iFruit Cloud Music</title>
+</head>
+
+<body>
+    <div class="con">
+        <div class="front-panel-box" id="frontPanel">
+
+            <div class="front-panel">
+
+                <div class="front-panel-head">
+                    <div class="go-back" onclick="goBack()">&lt;返回</div>
+                </div>
+                <div class="main-area">
+                    <div class="main-area-left" id="frontLeft">
+                        <img src="../img/350px-Madogatari_Queen.png" alt="" id="frontDiskPic">
+                        <div class="disk-info" id="frontDiskInfo">XX首歌曲，XXXXX小时XX分钟</div>
+                        <div class="play-bottom-box">
+                            <div class="play-bottom">播放</div>
+                            <div class="play-bottom">随机播放</div>
+                        </div>
+                        <div class="description" id="frontDescription">
+                            这是测试页面用<br>这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用</div>
+                    </div>
+                    <div class="main-area-right">
+                        <div class="front-panel-disk-info">
+                            <div class="front-panel-disk-name" id="frontPanelDiskName">
+                                歌单名称
+                            </div>
+                            <div class="front-panel-disk-creator" id="frontPanelDiskCreator">
+                                作者名字
+                            </div>
+                        </div>
+                        <div class="front-panel-song-list" id="frontPanelSongList">
+                            <div class="front-panel-song">
+                                <div class="song-num">1</div>
+                                <div class="song-name">Kimino Shiranai Monogatari</div>
+                                <div class="song-artist">supercell</div>
+                                <div class="song-length">5:40</div>
+                            </div>
+                            <div class="front-panel-song">
+                                <div class="song-num">2</div>
+                                <div class="song-name">如果你看到这个，说明js没有正确加载</div>
+                                <div class="song-artist">AlexZ</div>
+                                <div class="song-length">0:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fornt-panel-bottom"></div>
+            </div>
+        </div>
+        <!-- ======= -->
+        <div class="main-area-box" id="mainAreaBox">
+            <div class="top-bar" id="top">
+                <div class="left-site">
+                    <div class="current-date" id="currentDate">M月D日 EEE</div>
+                    <div class="bigest-title">为你推荐</div>
+                </div>
+                <a class="user-avatar" href="JavaScript:void(0)" onclick="test()">
+                    <img src="../img/350px-Madogatari_Queen.png" alt="">
+                </a>
+            </div>
+            <!-- = -->
+            <div class="list">
+                <div class="list-title">
+                    <div class="list-title-text" onclick="fu()">
+                        推荐歌单
+                    </div>
+                    <!-- <a class="view-all" href="JavaScript:void(0)">
+                        显示全部
+                    </a> -->
+                </div>
+                <div class="list-items">
+                    <div class="left-arrow" id="recommendDiskLArr" onclick="leftRoll('recommendDisk')">&lt;</div>
+                    <div class="disk-box" id="recommendDisk">
+
+                    </div>
+                    <div class="right-arrow" id="recommendDiskLArr" onclick="rightRoll('recommendDisk')">&gt;</div>
+                </div>
+            </div>
+            <!-- = -->
+            <div class="list">
+                <div class="list-title">
+                    <div class="list-title-text">
+                        网友精选碟
+                    </div>
+                    <!-- <a class="view-all" href="JavaScript:void(0)">
+                        显示全部
+                    </a> -->
+                </div>
+                <div class="list-items">
+                    <div class="left-arrow" id="hotestDiskLArr" onclick="leftRoll('hotestDisk')">&lt;</div>
+                    <div class="disk-box" id="hotestDisk">
+                        <!-- Wait for ajax.. -->
+                    </div>
+                    <div class="right-arrow" id="hotestDiskRArr" onclick="rightRoll('hotestDisk')">&gt;</div>
+                </div>
+            </div>
+            <!-- = -->
+            <div class="list">
+                <div class="list-title">
+                    <div class="list-title-text">
+                        新碟上架
+                    </div>
+                    <!-- <a class="view-all" href="JavaScript:void(0)">
+                        显示全部
+                    </a> -->
+                </div>
+                <div class="list-items">
+                    <div class="left-arrow" id="newDiskLArr" onclick="leftRoll('newDisk')">&lt;</div>
+                    <div class="disk-box" id="newDisk">
+
+                    </div>
+                    <div class="right-arrow" id="newDiskRArr" onclick="rightRoll('newDisk')">&gt;</div>
+                </div>
+            </div>
+            <!-- = -->
+            <div class="bottom"></div>
+
+            <!-- = -->
+            <div class="sub-bar" id="subBar">
+                <div class="glass"></div>
+                <div class="ctrl-panel">
+                    <div class="ctrl-item-box">
+                        <div class="ctrl-item">
+                            <span class="iconfont icon-AppleMusic my-icon"></span>
+                            <div class="ctrl-text">资料库</div>
+                        </div>
+                    </div>
+                    <div class="ctrl-item-box">
+                        <div class="ctrl-item">
+                            <span class="iconfont icon-aixin my-icon-selected"></span>
+                            <div class="ctrl-text-selected">为你推荐</div>
+                        </div>
+                    </div>
+                    <div class="ctrl-item-box">
+                        <div class="ctrl-item">
+                            <span class="iconfont icon-sousuo  my-icon"></span>
+                            <div class="ctrl-text">搜索</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="player-area">
+                </div>
+            </div>
+            <div class="player-box" id="player">
+                <div>
+                    <!-- 障眼法 -->
+                    <div class="player-top" id="hiddenTop" onclick="displayFullPlayer()">
+                        <div class="player-top-bar"></div>
+                    </div>
+                    <!-- 实体 -->
+                    <audio src="" id="currentSong"></audio>
+                    <img src="../img/AppleMusic.png" alt="" class="current-img" id="currentSongPic"
+                        onclick="displayFullPlayer()">
+                    <div class="player-name-tool-box">
+                        <div class="current-song" onclick="displayFullPlayer()" id="currentSongBox">
+                            <div id="currentSongName">
+                                未在播放
+                            </div>
+                        </div>
+                        <div class="tool-box-small" id="smallToolBox">
+                            <div class="play-small" id="playSmall">
+                                <div onclick="play()">
+                                    <span class="iconfont icon-qiyong tools-small"></span>
+                                </div>
+                            </div>
+                            <div class="next-song-small" id="nextSongSmall">
+                                <span class="iconfont icon-ai-rew-right tools-small"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="current-artist" id="currentArtest">&nbsp</div>
+                    
+                    <div class="progress-bar-box">
+                        <div class="progress-bar" id="progressDrag">
+                            <div class="progressed-bar" id="progressBar"></div>
+                            <div class="progress-bar-item" id="progressBarItem"></div>
+                        </div>
+                        <div class="progress-info">
+                            <div class="played" id="played">
+                                00:00
+                            </div>
+                            <div class="remaining" id="remaining">
+                                -00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tool-box">
+                        <div class="previous-song" id="previousSong">
+                            <span class="iconfont icon-ai-rew-right tools"></span>
+                        </div>
+                        <div class="play" id="play">
+                            <div onclick="play()">
+                                <span class="iconfont icon-qiyong tools"></span>
+                            </div>
+                        </div>
+                        <div class="next-song" id="nextSong">
+                            <span class="iconfont icon-ai-rew-right tools"></span>
+                        </div>
+                    </div>
+                    <!-- 障眼法 -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    let currentPlayList = [];
+    let currentSongInList = 0;
+    let currentSongLength;
+    let player = document.getElementById("currentSong");
+    let playerNode = document.getElementById("player");
+    let frontNode = document.getElementById("frontPanel");
+    let frontDiskPic = document.getElementById("frontDiskPic");
+    let frontDiskInfoNode = document.getElementById("frontDiskInfo");
+    let frontDescriptionNode = document.getElementById("frontDescription");
+    let frontPanelDiskNameNode = document.getElementById("frontPanelDiskName");
+    let frontPanelDiskCreatorNode = document.getElementById("frontPanelDiskCreator");
+    let frontPanelSongListNode = document.getElementById("frontPanelSongList");
+    let currentArtestNode = document.getElementById("currentArtest");
+    let progressDragNode = document.getElementById("progressDrag");
+    let isFullPlayer = false;
+    initPage();
+
+    fetch('http://www.huishiguang.com:3000/top/playlist?limit=16&order=hot', {
+            method: "get",
+            mode: "cors"
+        })
+        .then(function (r) {
+            return r.json()
+        })
+        .then(function (data) {
+            if (data.code != 200) {
+                console.log(data.msg);
+            } else {
+                let strHtml = "";
+                data.playlists.forEach(element => {
+                    strHtml += `<div class="disk" onclick="getDiskInfo(${element.id})">
+                    <img src="${element.coverImgUrl}" alt="">
+                    <div class="disk-name">${element.name}</div>
+                </div>`;
+                });
+                let temp = document.getElementById("hotestDisk");
+                temp.style.width = (250 * 16 + 100) + 'px';
+                temp.innerHTML = strHtml;
+            }
+        });
+    fetch('http://www.huishiguang.com:3000/album/newest', {
+            method: "get",
+            mode: "cors"
+        })
+        .then(function (r) {
+            return r.json()
+        })
+        .then(function (data) {
+            if (data.code != 200) {
+                console.log(data.msg);
+            } else {
+                let strHtml = "";
+                data.albums.forEach(element => {
+                    strHtml += `<div class="disk" onclick="getAlbumInfo(${element.id})">
+                    <img src="${element.blurPicUrl}" alt="">
+                    <div class="disk-name">${element.name}</div>
+                </div>`;
+                });
+                let temp = document.getElementById("newDisk");
+                temp.style.width = (250 * 16 + 100) + 'px';
+                temp.innerHTML = strHtml;
+            }
+        });
+    fetch('http://www.huishiguang.com:3000/personalized?limit=16', {
+            method: "get",
+            mode: "cors"
+        })
+        .then(function (r) {
+            // console.log(r);
+            return r.json()
+        })
+        .then(function (data) {
+            let strHtml = "";
+            if (data.code != 200) {
+                console.log(data.msg);
+            } else {
+                data.result.forEach(element => {
+                    strHtml += `<div class="disk" onclick="getDiskInfo(${element.id})">
+                    <img src="${element.picUrl}" alt="">
+                    <div class="disk-name">${element.name}</div>
+                </div>`;
+                });
+                let temp = document.getElementById("recommendDisk");
+                temp.style.width = (250 * 16 + 100) + 'px';
+                temp.innerHTML = strHtml;
+            }
+        });
+    fetch('http://www.huishiguang.com:3000/album?id=81917', {
+            method: "get",
+            mode: "cors"
+        })
+        .then(function (r) {
+            return r.json()
+        }).then(function (data) {
+            renderingFrontPage(data.album.picUrl, data.album.description, data.album.name, data.album.artist.name,
+                data.songs);
+        })
+
+    function renderingFrontPage(picUrl, description, name, artistName, songList) {
+        frontDiskPic.src = picUrl;
+        let reg = /\n/g
+        let descriptionStr = "";
+        description.split(reg).forEach(element => {
+            descriptionStr += element + "<br>";
+        })
+        frontDescriptionNode.innerHTML = descriptionStr;
+        frontPanelDiskNameNode.innerHTML = name;
+        frontPanelDiskCreatorNode.innerHTML = artistName;
+        let htmlStr = ``;
+        let songCount = 0;
+        let totalLength = 0;
+        songList.forEach(element => {
+            let mins = Math.floor(element.dt / 60000);
+            let secs = Math.floor(element.dt / 1000) - 60 * mins;
+            if(secs<10){
+                secs=`0${secs}`;
+            }
+            songCount++;
+            totalLength += element.dt / 1000;
+            if (songCount < 101) {
+                htmlStr += `<div class="front-panel-song" onclick="changePlaylist('${element.id}','${element.name}','${element.al.picUrl}','${element.ar[0].name}',${element.dt})">
+                            <div class="song-num">${songCount}</div>
+                            <div class="song-name">${element.name}</div>
+                            <div class="song-artist">${element.ar[0].name}</div>
+                            <div class="song-length">${mins+":"+secs}</div>
+                        </div>`;
+            } else if (songCount == 101) {
+                htmlStr +=
+                    `<div style="color:#858585;font-size:18px;line-height:64px;text-align:right">暂时只显示前100首歌曲</div>`;
+            }
+        });
+        if (Math.floor(totalLength / 60) < 60) {
+            frontDiskInfoNode.innerHTML = `${songCount}首歌曲，${Math.floor(totalLength/60)}分钟`;
+        } else {
+            frontDiskInfoNode.innerHTML =
+                `${songCount}首歌曲，${Math.floor(totalLength/360)}小时${Math.floor(totalLength/60)%Math.floor(totalLength/360)}分钟`;
+        }
+        frontPanelSongListNode.innerHTML = htmlStr;
+    }
+
+
+    function renderingTimer(){
+        let playedNode = document.getElementById("played");
+        let remainingNode = document.getElementById("remaining");
+        let temp = player.duration-player.currentTime;
+        let min=Math.floor(player.currentTime / 60);
+        let sec=Math.floor(player.currentTime) - 60 * min;
+        let tempMin=Math.floor(temp / 60);
+        let tempSec=Math.floor(temp) - 60 * tempMin;
+        if(sec<10){
+            playedNode.innerHTML=`${min}:0${sec}`;
+        }else{
+            playedNode.innerHTML=`${min}:${sec}`;
+        }if(tempSec<10){
+            remainingNode.innerHTML=`-${tempMin}:0${tempSec}`;
+        }else{
+            remainingNode.innerHTML=`-${tempMin}:${tempSec}`;
+        }
+    }
+    function play() { //播放器控件-播放
+        
+            let playedNode = document.getElementById("played");
+            let remainingNode = document.getElementById("remaining");
+            let progressBarNode = document.getElementById("progressBar");
+            let progressBarItemNode =document.getElementById("progressBarItem");
+            player.play();
+            
+            player.ontimeupdate=function(){
+                if(player.duration){
+                    renderingTimer();
+                    let value=player.currentTime/player.duration;
+                    progressBarNode.style.width=value*340+"px";
+                    let barItemLeft=value*340-3;
+                    if(barItemLeft>=340-8){
+                        barItemLeft=340-8;
+                    }
+                    progressBarItemNode.style.left=barItemLeft+"px";
+                }
+            }
+            let playSmallNode = document.getElementById("playSmall");
+            let playNode = document.getElementById("play");
+            playSmallNode.innerHTML = `<div onclick="pause()">
+                    <span class="iconfont icon-zanting tools-small"></span>
+                </div>`;
+            playNode.innerHTML=`<div onclick="pause()">
+                    <span class="iconfont icon-zanting tools"></span>
+                </div>`;
+    }
+
+    function pause() { //播放器控件-暂停
+        player.pause();
+        let playSmallNode = document.getElementById("playSmall");
+        let playNode = document.getElementById("play");
+        playSmallNode.innerHTML = `<div onclick="play()">
+                <span class="iconfont icon-qiyong tools-small"></span>
+            </div>`;
+        playNode.innerHTML=`<div onclick="play()">
+                <span class="iconfont icon-qiyong tools"></span>
+            </div>`;
+    }
+
+    function getDiskInfo(id) { //获取歌单详情信息，直接渲染并转跳
+        fetch('http://www.huishiguang.com:3000/playlist/detail?id=' + id, {
+                method: "get",
+                mode: "cors"
+            })
+            .then(function (r) {
+                return r.json()
+            }).then(function (data) {
+                renderingFrontPage(data.playlist.coverImgUrl, data.playlist.description, data.playlist.name, data
+                    .playlist.creator.nickname, data.playlist.tracks);
+                showDetails();
+            })
+    }
+
+    function getAlbumInfo(id) { //获取专辑的详细信息，直接渲染进上层并转跳
+        fetch('http://www.huishiguang.com:3000/album?id=' + id, {
+                method: "get",
+                mode: "cors"
+            })
+            .then(function (r) {
+                return r.json()
+            }).then(function (data) {
+                renderingFrontPage(data.album.picUrl, data.album.description, data.album.name, data.album.artist
+                    .name, data.songs);
+                showDetails();
+            })
+    }
+
+    function changePlaylist(id, name, pic, artist,length) {
+        let playedNode = document.getElementById("played");
+        let remainingNode = document.getElementById("remaining");
+        let nameNode = document.getElementById("currentSongName");
+        let picNode = document.getElementById("currentSongPic");
+        remainingNode.innerHTML=`-${Math.floor(length / 60000)}:${Math.floor(length / 1000) - 60 * Math.floor(length / 60000)}`;
+        nameNode.innerHTML = name;
+        picNode.src = pic;
+        currentArtestNode.innerHTML = artist;
+        currentSongLength= length;
+        player.src = "https://music.163.com/song/media/outer/url?id=" + id;
+        play();
+
+    }
+
+    function goBack() {
+        let node = document.getElementById("frontPanel");
+        node.style.left = "100%";
+    }
+
+    function test() {
+        showDetails();
+    }
+
+    progressDragNode.onmousedown=function(event0){
+        let progressBarNode = document.getElementById("progressBar");
+        let progressBarItemNode =document.getElementById("progressBarItem");
+        let dis0 = playerNode.offsetLeft+30;
+        let disx = event0.pageX - dis0;
+        progressBarNode.style.width=disx+"px";
+        let barItemLeft=disx-3;
+        if(barItemLeft>=340-8){
+            barItemLeft=340-8;
+        }else if(barItemLeft<=-3){
+            barItemLeft=-3;
+        }
+        player.pause();
+        progressBarItemNode.style.left=barItemLeft+"px";
+        player.currentTime=player.duration*disx/340;
+        document.onmousemove=function(event1){
+            player.pause();
+            disx = event1.pageX - dis0;
+            if(disx>=340){
+                disx=340;
+            }
+            progressBarNode.style.width=disx+"px";
+            barItemLeft=disx-3;
+            if(barItemLeft>=340-8){
+                barItemLeft=340-8;
+            }else if(barItemLeft<=-3){
+            barItemLeft=-3;
+            }
+            progressBarItemNode.style.left=barItemLeft+"px";
+        }
+        document.onmouseup=function(event1){
+            player.currentTime=player.duration*disx/340;
+            player.play();
+            document.onmousemove = document.onmouseup = null;
+        }
+    }
+    function showDetails() {
+        frontNode.scrollTop = 0;
+        frontDescriptionNode.scrollTop = 0;
+        let node = document.getElementById("frontPanel");
+        node.style.left = "0%";
+    }
+
+    function rightRoll(id) {
+        let node = document.getElementById(id);
+        //获取当前盒
+        let boxWidth = document.body.clientWidth * 0.9;
+        let fullDisplayCount = Math.floor(boxWidth / 250);
+        let originalMarginL = parseInt(window.getComputedStyle(node, null).marginLeft);
+        originalMarginL = Math.floor(originalMarginL / 250) * 250;
+        if (originalMarginL - boxWidth > node.childElementCount * -250) {
+            let marginL = originalMarginL - fullDisplayCount * 250;
+            node.style.marginLeft = marginL + 'px';
+        }
+    }
+
+    function leftRoll(id) {
+        let node = document.getElementById(id);
+        //获取当前盒
+        let boxWidth = document.body.clientWidth * 0.9;
+        //先看他移动了多少
+        let originalMarginL = parseInt(window.getComputedStyle(node, null).marginLeft);
+        originalMarginL = Math.floor(originalMarginL / 250) * 250;
+        if (originalMarginL < 0) {
+            let marginL = originalMarginL + Math.floor(boxWidth / 250) * 250;
+            if (marginL > 0) {
+                marginL = 0;
+            }
+            node.style.marginLeft = marginL + 'px';
+        }
+    }
+
+    function initPage() {
+        let currentDateNode = document.getElementById("currentDate");
+        let week = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+        let today = new Date();
+        currentDateNode.innerHTML = (today.getMonth() + 1) + "月" + today.getDate() + "日 " + week[today.getDay() - 1];
+    }
+
+    function displayFullPlayer() {
+        let currentSongPicNode = document.getElementById("currentSongPic");
+        let currentSongBoxNode = document.getElementById("currentSongBox");
+        let currentSongNameNode = document.getElementById("currentSongName");
+        let playSmallNode = document.getElementById("playSmall");
+        let nextSongSmallNode = document.getElementById("nextSongSmall");
+        let hiddenTopNode = document.getElementById("hiddenTop");
+        let smallToolBoxNode = document.getElementById("smallToolBox");
+        if (isFullPlayer == false) {
+            playerNode.style.paddingLeft = "0px";
+            playerNode.style.cursor = "default";
+            playerNode.style.height = "750px";
+            playerNode.style.background = "white";
+            playerNode.style.borderRadius = "10px 10px 0px 0px";
+            playerNode.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.3)";
+            
+            currentSongPicNode.style.height = "250px";
+            currentSongPicNode.style.width = "250px";
+            currentSongPicNode.style.margin = "40px 75px 50px 75px";
+            smallToolBoxNode.style.height="0px";
+            smallToolBoxNode.style.width="0px";
+            playSmallNode.style.height="0px";
+            playSmallNode.style.width="0px";
+            nextSongSmallNode.style.height="0px";
+            nextSongSmallNode.style.width="0px";
+            currentSongBoxNode.style.marginLeft = "30px";
+            currentSongBoxNode.style.width = "340px";
+            currentSongNameNode.style.fontSize = "24px";
+            hiddenTopNode.style.height = "30px";
+            hiddenTopNode.style.paddingTop = "10px";
+            currentArtestNode.style.marginLeft = "30px";
+            currentArtestNode.style.fontSize = "18px";
+            isFullPlayer = true;
+
+        } else {
+            playerNode.style.paddingLeft = "15px";
+            playerNode.style.cursor = "pointer";
+            playerNode.style.height = "60px";
+            playerNode.style.background = "none";
+            playerNode.style.borderRadius = "0px 0px 0px 0px";
+            playerNode.style.boxShadow = "";
+            currentSongPicNode.style.height = "50px";
+            currentSongPicNode.style.width = "50px";
+            currentSongPicNode.style.margin = "0px 0px 0px 0px";
+            smallToolBoxNode.style.height="50px";
+            smallToolBoxNode.style.width="100px";
+            playSmallNode.style.height="50px";
+            playSmallNode.style.width="50px";
+            nextSongSmallNode.style.height="50px";
+            nextSongSmallNode.style.width="50px";
+            currentSongBoxNode.style.marginLeft = "10px";
+            currentSongBoxNode.style.width = "200px";
+            currentSongNameNode.style.fontSize = "16px";
+            hiddenTopNode.style.height = "0px";
+            hiddenTopNode.style.paddingTop = "0px";
+            currentArtestNode.style.marginLeft = "0px";
+            currentArtestNode.style.fontSize = "0px";
+            isFullPlayer = false;
+        }
+    }
+</script>
+
+</html>
