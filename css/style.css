@@ -28,7 +28,6 @@ body {
     left: 100%;
     z-index: 1;
     overflow-y: scroll;
-    scrollbar-width: none;
 }
 
 .front-panel {
@@ -120,7 +119,6 @@ body {
     width: 80%;
     height: 400px;
     overflow-y: scroll;
-    scrollbar-width: none;
 }
 
 .main-area-right {
@@ -209,7 +207,6 @@ div.front-panel-song:hover {
     width: 100%;
     height: 100%;
     overflow-x: scroll;
-    scrollbar-width: none;
 }
 
 .top-bar {
@@ -408,10 +405,11 @@ div.front-panel-song:hover {
 
 .ctrl-item-box {
     display: inline-block;
-    width: 33.33%;
+    width: 50%;
     height: 60px;
     line-height: 60px;
     z-index: 99;
+    cursor: pointer;
 }
 
 .ctrl-item {
@@ -475,9 +473,6 @@ div.ctrl-text-selected {
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow: hidden;
 }
-.player-box:hover{
-    cursor: pointer;
-}
 
 .player-top{
     width:100%;
@@ -505,6 +500,7 @@ div.ctrl-text-selected {
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 99;
+    cursor: pointer;
 }
 .player-name-tool-box{
     vertical-align: middle;
@@ -522,6 +518,7 @@ div.ctrl-text-selected {
     margin-left: 15px;
     z-index: 99;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
 }
 .current-artist{
     font-size: 0px;
@@ -544,6 +541,7 @@ div.ctrl-text-selected {
     transform: scale(-1,1);
     text-align: center;
     z-index: 99;
+    cursor: pointer;
 }
 
 .play {
@@ -554,6 +552,7 @@ div.ctrl-text-selected {
     width: 70px;
     text-align: center;
     z-index: 99;
+    cursor: pointer;
 }
 .play-small {
     vertical-align: middle;
@@ -564,6 +563,7 @@ div.ctrl-text-selected {
     text-align: center;
     z-index: 99;
     overflow: hidden;
+    cursor: pointer;
 }
 .pause {
     vertical-align: middle;
@@ -573,6 +573,7 @@ div.ctrl-text-selected {
     width: 70px;
     text-align: center;
     z-index: 99;
+    cursor: pointer;
 }
 .pause-small {
     vertical-align: middle;
@@ -583,6 +584,7 @@ div.ctrl-text-selected {
     text-align: center;
     z-index: 99;
     overflow: hidden;
+    cursor: pointer;
 }
 .next-song {
     vertical-align: middle;
@@ -593,6 +595,7 @@ div.ctrl-text-selected {
 
     text-align: center;
     z-index: 99;
+    cursor: pointer;
 }
 .next-song-small {
     vertical-align: middle;
@@ -604,6 +607,7 @@ div.ctrl-text-selected {
     text-align: center;
     z-index: 99;
     overflow: hidden;
+    cursor: pointer;
 }
 .tool-box{
     display: inline-block;
@@ -635,10 +639,10 @@ span.tools:hover {
 }
 
 .progress-bar-box{
-    height: 70px;
+    height: 60px;
     width: 350px;
     margin:auto;
-    padding-top: 30px;
+    padding-top: 20px;
     overflow: hidden;
 }
 .progress-bar{
@@ -685,4 +689,108 @@ span.tools:hover {
     font-size: 15px;
     line-height: 20px;
     color: #c0c0c0;
+}
+.volume-bar-box{
+    height: 50px;
+    width: 350px;
+    margin:auto;
+    overflow: hidden;
+}
+.volume-up-icon{
+    vertical-align: middle;
+    text-align: center;
+    line-height: 45px;
+    width:50px;
+    height:50px;
+    display: inline-block;
+    font-size: 25px;
+}
+.volume-bar{
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    background: #c0c0c0;
+    width: 250px;
+    border-radius: 2px;
+    height: 4px;
+    cursor: pointer;
+}
+.volume-used-bar{
+    position: absolute;
+    background: #888888;
+    width: 200px;
+    border-radius: 2px;
+    height: 4px;
+}
+.volume-bar-item{
+    position: absolute;
+    background:white;
+    border: #888888 solid 1px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top:-7px;
+    left: 194px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+.search-area-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    /* transition: all 0.0s cubic-bezier(0.165, 0.84, 0.44, 1); */
+    top: 100%;
+    z-index: 90;
+    overflow-y: scroll;
+}
+.search-main-area{
+    position: relative;
+    width:90%;
+    height:100px;
+    margin: auto;
+    padding-top:20px;
+}
+.search-bar{
+    width:100%;
+    height:40px;
+    border-radius: 6px;
+    background: #e9e9e9;
+    font-size:16px;
+    padding-left:40px;
+    padding-right: 20px;
+    box-shadow:none; /*去除阴影*/
+    outline: none;/*聚焦input的蓝色边框*/
+    resize: none; /*textarea 禁止拖拽*/
+    border: none; /*去除边框*/
+    -webkit-appearance: none;/*常用于IOS下移除原生样式*/
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /*点击高亮的颜色*/
+}
+span.search-icon{
+    position: absolute;
+    top:25px;
+    left:5px;
+    font-size: 26px;
+    color: #858585;
+}
+.search-option-area{
+    width:89%;
+    margin: auto;
+}
+.search-option{
+    width:100%;
+    font-size:18px;
+    line-height: 48px;
+    border-top: #858585 solid 1px;
+    height: 48px;
+    display: flex;
+    z-index: 2;
+    transition: box-shadow 0.3s ease;
+    padding-left:5px;
+}
+.search-option:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.hot-search-title{
+    font-size:25px;
 }

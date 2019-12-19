@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/lib/iconfont.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lib/iconfont.css">
 
     <title> iFruit Cloud Music</title>
 </head>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="main-area">
                     <div class="main-area-left" id="frontLeft">
-                        <img src="/img/350px-Madogatari_Queen.png" alt="" id="frontDiskPic">
+                        <img src="img/350px-Madogatari_Queen.png" alt="" id="frontDiskPic">
                         <div class="disk-info" id="frontDiskInfo">XX首歌曲，XXXXX小时XX分钟</div>
                         <div class="play-bottom-box">
                             <div class="play-bottom">播放</div>
@@ -68,7 +68,7 @@
                     <div class="bigest-title">为你推荐</div>
                 </div>
                 <a class="user-avatar" href="JavaScript:void(0)" onclick="test()">
-                    <img src="../img/350px-Madogatari_Queen.png" alt="">
+                    <img src="img/350px-Madogatari_Queen.png" alt="">
                 </a>
             </div>
             <!-- = -->
@@ -132,22 +132,22 @@
             <div class="sub-bar" id="subBar">
                 <div class="glass"></div>
                 <div class="ctrl-panel">
-                    <div class="ctrl-item-box">
+                    <!-- <div class="ctrl-item-box">
                         <div class="ctrl-item">
                             <span class="iconfont icon-AppleMusic my-icon"></span>
                             <div class="ctrl-text">资料库</div>
                         </div>
-                    </div>
-                    <div class="ctrl-item-box">
+                    </div> -->
+                    <div class="ctrl-item-box" onclick="showRecommendPage()">
                         <div class="ctrl-item">
-                            <span class="iconfont icon-aixin my-icon-selected"></span>
-                            <div class="ctrl-text-selected">为你推荐</div>
+                            <span class="iconfont icon-aixin my-icon-selected" id="recommendIcon"></span>
+                            <div class="ctrl-text-selected" id="recommendText">为你推荐</div>
                         </div>
                     </div>
-                    <div class="ctrl-item-box">
+                    <div class="ctrl-item-box" onclick="showSearchPage()">
                         <div class="ctrl-item">
-                            <span class="iconfont icon-sousuo  my-icon"></span>
-                            <div class="ctrl-text">搜索</div>
+                            <span class="iconfont icon-sousuo  my-icon" id="searchIcon"></span>
+                            <div class="ctrl-text" id="searchText">搜索</div>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     </div>
                     <!-- 实体 -->
                     <audio src="" id="currentSong"></audio>
-                    <img src="/img/AppleMusic.png" alt="" class="current-img" id="currentSongPic"
+                    <img src="img/AppleMusic.png" alt="" class="current-img" id="currentSongPic"
                         onclick="displayFullPlayer()">
                     <div class="player-name-tool-box">
                         <div class="current-song" onclick="displayFullPlayer()" id="currentSongBox">
@@ -224,6 +224,25 @@
                 </div>
             </div>
         </div>
+        <div class="search-area-box" id="searchAreaBox">
+            <div class="top-bar" id="top">
+                <div class="left-site">
+                    <div class="current-date" id="currentDate"></div>
+                    <div class="bigest-title">搜索</div>
+                </div>
+            </div>
+            <div class="search-main-area">
+                <span class="iconfont icon-sousuo  search-icon"></span>
+                <input type="search" id="searchBar" class="search-bar" placeholder="搜索资料库">
+            </div>
+            <div class="search-option-area" id="searchOptionArea">
+                <div class="hot-search-title" id="">热门搜索</div>
+                <div class="search-option">
+                    
+                </div>
+            </div>
+            <div class="fornt-panel-bottom"></div>
+        </div>
     </div>
 </body>
 
@@ -244,7 +263,7 @@
     let currentArtestNode = document.getElementById("currentArtest");
     let progressDragNode = document.getElementById("progressDrag");
     let volumeDragNode = document.getElementById("volumeDrag");
-
+    let searchBarNode = document.getElementById("searchBar");
     let isFullPlayer = false;
     initPage();
 
@@ -327,6 +346,21 @@
         }).then(function (data) {
             renderingFrontPage(data.album.picUrl, data.album.description, data.album.name, data.album.artist.name,
                 data.songs);
+        })
+    fetch('http://www.huishiguang.com:3000/search/hot', {
+            method: "get",
+            mode: "cors"
+        })
+        .then(function (r) {
+            return r.json()
+        }).then(function (data) {
+            console.log(data);
+            let htmlStr = `<div class="hot-search-title" id="">热门搜索</div>`;
+            let searchOptionAreaNode = document.getElementById("searchOptionArea");
+            data.result.hots.forEach(element => {
+                htmlStr += `<div class="search-option">${element.first}</div>`;
+            })
+            searchOptionAreaNode.innerHTML = htmlStr;
         })
 
     function renderingFrontPage(picUrl, description, name, artistName, songList) {
@@ -464,7 +498,7 @@
     }
 
     function changePlaylist(id, name, pic, artist, length) {
-        currentPlayList=frontPageList;
+        currentPlayList = frontPageList;
         let playedNode = document.getElementById("played");
         let remainingNode = document.getElementById("remaining");
         let nameNode = document.getElementById("currentSongName");
@@ -483,6 +517,32 @@
 
     }
 
+    function showRecommendPage() {
+        let searchAreaBoxNode = document.getElementById("searchAreaBox");
+        let searchIconNode = document.getElementById("searchIcon");
+        let searchTextNode = document.getElementById("searchText");
+        let recommendIconNode = document.getElementById("recommendIcon");
+        let recommendTextNode = document.getElementById("recommendText");
+        searchIconNode.style.color = "#858585";
+        searchTextNode.style.color = "#858585";
+        recommendIconNode.style.color = "#ff1e1e";
+        recommendTextNode.style.color = "#ff1e1e";
+        searchAreaBoxNode.style.top = "100%";
+    }
+
+    function showSearchPage() {
+        let searchAreaBoxNode = document.getElementById("searchAreaBox");
+        let searchIconNode = document.getElementById("searchIcon");
+        let searchTextNode = document.getElementById("searchText");
+        let recommendIconNode = document.getElementById("recommendIcon");
+        let recommendTextNode = document.getElementById("recommendText");
+        searchIconNode.style.color = "#ff1e1e";
+        searchTextNode.style.color = "#ff1e1e";
+        recommendIconNode.style.color = "#858585";
+        recommendTextNode.style.color = "#858585";
+        searchAreaBoxNode.style.top = "0%";
+    }
+
     function goBack() {
         let node = document.getElementById("frontPanel");
         node.style.left = "100%";
@@ -490,6 +550,47 @@
 
     function test() {
         showDetails();
+    }
+    searchBarNode.onfocus = function (event0) {
+        let lastValue = null;
+        searchBarNode.onkeyup = function (event1) {
+            if (lastValue != searchBarNode.value) {
+                lastValue = searchBarNode.value;
+                if (searchBarNode.value != "") {
+                    fetch('http://www.huishiguang.com:3000/search?keywords=' + searchBarNode.value, {
+                            method: "get",
+                            mode: "cors"
+                        })
+                        .then(function (r) {
+                            return r.json()
+                        }).then(function (data) {
+                            let htmlStr = ``;
+                            let searchOptionAreaNode = document.getElementById("searchOptionArea");
+                            let songCount = 0;
+                            data.result.songs.forEach(element => {
+                                htmlStr += `<div class="front-panel-song" onclick="changePlaylistFetch('${element.id}')">
+                            <div class="song-num">${++songCount}</div>
+                                <div class="song-name">${element.name}</div>
+                            <div class="song-artist">${element.artists[0].name}</div>
+                            </div>`;
+                            })
+                            searchOptionAreaNode.innerHTML = htmlStr;
+                        })
+                }
+            }
+        }
+    }
+
+    function changePlaylistFetch(id) {
+        fetch('http://www.huishiguang.com:3000/song/detail?ids=' + id, {
+                method: "get",
+                mode: "cors"
+            })
+            .then(function (r) {
+                return r.json()
+            }).then(function (data) {
+                changePlaylist(id, data.songs[0].name, data.songs[0].al.picUrl, data.songs[0].ar[0].name, 0);
+            })
     }
 
     progressDragNode.onmousedown = function (event0) {
@@ -625,7 +726,6 @@
         let smallToolBoxNode = document.getElementById("smallToolBox");
         if (isFullPlayer == false) {
             playerNode.style.paddingLeft = "0px";
-            playerNode.style.cursor = "default";
             playerNode.style.height = "700px";
             playerNode.style.background = "white";
             playerNode.style.borderRadius = "10px 10px 0px 0px";
@@ -651,7 +751,6 @@
 
         } else {
             playerNode.style.paddingLeft = "15px";
-            playerNode.style.cursor = "pointer";
             playerNode.style.height = "60px";
             playerNode.style.background = "none";
             playerNode.style.borderRadius = "0px 0px 0px 0px";
