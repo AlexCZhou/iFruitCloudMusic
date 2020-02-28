@@ -30,7 +30,7 @@
                             <div class="play-bottom">随机播放</div>
                         </div>
                         <div class="description" id="frontDescription">
-                            这是测试页面用<br>这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用</div>
+                            这是测试页面<br>这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用这是测试页面用</div>
                     </div>
                     <div class="main-area-right">
                         <div class="front-panel-disk-info">
@@ -50,7 +50,7 @@
                             </div>
                             <div class="front-panel-song">
                                 <div class="song-num">2</div>
-                                <div class="song-name">如果你看到这个，说明js没有正确加载</div>
+                                <div class="song-name">如果你看到这个，说明Ajax没有正确加载</div>
                                 <div class="song-artist">AlexZ</div>
                                 <div class="song-length">0:00</div>
                             </div>
@@ -219,6 +219,10 @@
                         </div>
                         <div class="volume-up-icon">+</div>
                     </div>
+                    <!-- <div class="func-box">
+                        <div class="lyrics-bottom" onclick="showLyrics()">歌词</div>
+                        <div class="comment-bottom" onclick="showComment()">评论</div>
+                    </div> -->
                     <!-- 障眼法 -->
 
                 </div>
@@ -236,9 +240,8 @@
                 <input type="search" id="searchBar" class="search-bar" placeholder="搜索资料库">
             </div>
             <div class="search-option-area" id="searchOptionArea">
-                <div class="hot-search-title" id="">热门搜索</div>
                 <div class="search-option">
-                    
+
                 </div>
             </div>
             <div class="fornt-panel-bottom"></div>
@@ -251,6 +254,7 @@
     let frontPageList = [];
     let currentSongInList = 0;
     let currentSongLength;
+    let hotSreachList = [];
     let player = document.getElementById("currentSong");
     let playerNode = document.getElementById("player");
     let frontNode = document.getElementById("frontPanel");
@@ -268,9 +272,9 @@
     initPage();
 
     fetch('http://www.huishiguang.com:3000/top/playlist?limit=16&order=hot', {
-            method: "get",
-            mode: "cors"
-        })
+        method: "get",
+        mode: "cors"
+    })
         .then(function (r) {
             return r.json()
         })
@@ -291,9 +295,9 @@
             }
         });
     fetch('http://www.huishiguang.com:3000/album/newest', {
-            method: "get",
-            mode: "cors"
-        })
+        method: "get",
+        mode: "cors"
+    })
         .then(function (r) {
             return r.json()
         })
@@ -314,9 +318,9 @@
             }
         });
     fetch('http://www.huishiguang.com:3000/personalized?limit=16', {
-            method: "get",
-            mode: "cors"
-        })
+        method: "get",
+        mode: "cors"
+    })
         .then(function (r) {
             // console.log(r);
             return r.json()
@@ -338,9 +342,9 @@
             }
         });
     fetch('http://www.huishiguang.com:3000/album?id=81917', {
-            method: "get",
-            mode: "cors"
-        })
+        method: "get",
+        mode: "cors"
+    })
         .then(function (r) {
             return r.json()
         }).then(function (data) {
@@ -348,21 +352,63 @@
                 data.songs);
         })
     fetch('http://www.huishiguang.com:3000/search/hot', {
-            method: "get",
-            mode: "cors"
-        })
+        method: "get",
+        mode: "cors"
+    })
         .then(function (r) {
             return r.json()
         }).then(function (data) {
-            console.log(data);
-            let htmlStr = `<div class="hot-search-title" id="">热门搜索</div>`;
-            let searchOptionAreaNode = document.getElementById("searchOptionArea");
-            data.result.hots.forEach(element => {
-                htmlStr += `<div class="search-option">${element.first}</div>`;
-            })
-            searchOptionAreaNode.innerHTML = htmlStr;
+            
+            hotSreachList = data.result.hots;
+            renderingHotSearch();
         })
 
+    function renderingHotSearch() {
+        let searchOptionAreaNode = document.getElementById("searchOptionArea");
+        let htmlStr = `<div class="hot-search-title" id="">热门搜索</div>`;
+        hotSreachList.forEach(element => {
+            htmlStr += `<div class="search-option" onclick="quickSearch('${element.first}')">${element.first}</div>`;
+        })
+        searchOptionAreaNode.innerHTML = htmlStr;
+    }
+    // function showLyrics(){
+    //     makeSpace();
+    // }
+
+    // function makeSpace(){
+    //     let currentSongPicNode = document.getElementById("currentSongPic");
+    //     let currentSongBoxNode = document.getElementById("currentSongBox");
+    //     let currentSongNameNode = document.getElementById("currentSongName");
+    //     currentSongPicNode.style.margin="0 0 0 15px";
+    //     currentSongPicNode.style.width="50px";
+    //     currentSongPicNode.style.height="50px";
+    //     currentSongNameNode.style.fontSize="16px"
+    // }
+    function quickSearch(name) {
+        searchBarNode.value = name;
+        searchSong(name);
+    }
+    function searchSong(name) {
+        fetch('http://www.huishiguang.com:3000/search?keywords=' + name, {
+            method: "get",
+            mode: "cors"
+        })
+            .then(function (r) {
+                return r.json()
+            }).then(function (data) {
+                let htmlStr = ``;
+                let searchOptionAreaNode = document.getElementById("searchOptionArea");
+                let songCount = 0;
+                data.result.songs.forEach(element => {
+                    htmlStr += `<div class="front-panel-song" onclick="changePlaylistFetch('${element.id}')">
+                            <div class="song-num">${++songCount}</div>
+                                <div class="song-name">${element.name}</div>
+                            <div class="song-artist">${element.artists[0].name}</div>
+                            </div>`;
+                })
+                searchOptionAreaNode.innerHTML = htmlStr;
+            })
+    }
     function renderingFrontPage(picUrl, description, name, artistName, songList) {
         frontDiskPic.src = picUrl;
         let reg = /\n/g
@@ -390,7 +436,7 @@
                             <div class="song-num">${songCount}</div>
                             <div class="song-name">${element.name}</div>
                             <div class="song-artist">${element.ar[0].name}</div>
-                            <div class="song-length">${mins+":"+secs}</div>
+                            <div class="song-length">${mins + ":" + secs}</div>
                         </div>`;
             } else if (songCount == 101) {
                 htmlStr +=
@@ -398,10 +444,10 @@
             }
         });
         if (Math.floor(totalLength / 60) < 60) {
-            frontDiskInfoNode.innerHTML = `${songCount}首歌曲，${Math.floor(totalLength/60)}分钟`;
+            frontDiskInfoNode.innerHTML = `${songCount}首歌曲，${Math.floor(totalLength / 60)}分钟`;
         } else {
             frontDiskInfoNode.innerHTML =
-                `${songCount}首歌曲，${Math.floor(totalLength/360)}小时${Math.floor(totalLength/60)%Math.floor(totalLength/360)}分钟`;
+                `${songCount}首歌曲，${Math.floor(totalLength / 360)}小时${Math.floor(totalLength / 60) % Math.floor(totalLength / 360)}分钟`;
         }
         frontPanelSongListNode.innerHTML = htmlStr;
     }
@@ -471,9 +517,9 @@
 
     function getDiskInfo(id) { //获取歌单详情信息，直接渲染并转跳
         fetch('http://www.huishiguang.com:3000/playlist/detail?id=' + id, {
-                method: "get",
-                mode: "cors"
-            })
+            method: "get",
+            mode: "cors"
+        })
             .then(function (r) {
                 return r.json()
             }).then(function (data) {
@@ -485,9 +531,9 @@
 
     function getAlbumInfo(id) { //获取专辑的详细信息，直接渲染进上层并转跳
         fetch('http://www.huishiguang.com:3000/album?id=' + id, {
-                method: "get",
-                mode: "cors"
-            })
+            method: "get",
+            mode: "cors"
+        })
             .then(function (r) {
                 return r.json()
             }).then(function (data) {
@@ -546,6 +592,8 @@
     function goBack() {
         let node = document.getElementById("frontPanel");
         node.style.left = "100%";
+        let mainAreaBoxNode = document.getElementById("mainAreaBox");
+        mainAreaBoxNode.style.left="0%";
     }
 
     function test() {
@@ -556,26 +604,11 @@
         searchBarNode.onkeyup = function (event1) {
             if (lastValue != searchBarNode.value) {
                 lastValue = searchBarNode.value;
-                if (searchBarNode.value != "") {
-                    fetch('http://www.huishiguang.com:3000/search?keywords=' + searchBarNode.value, {
-                            method: "get",
-                            mode: "cors"
-                        })
-                        .then(function (r) {
-                            return r.json()
-                        }).then(function (data) {
-                            let htmlStr = ``;
-                            let searchOptionAreaNode = document.getElementById("searchOptionArea");
-                            let songCount = 0;
-                            data.result.songs.forEach(element => {
-                                htmlStr += `<div class="front-panel-song" onclick="changePlaylistFetch('${element.id}')">
-                            <div class="song-num">${++songCount}</div>
-                                <div class="song-name">${element.name}</div>
-                            <div class="song-artist">${element.artists[0].name}</div>
-                            </div>`;
-                            })
-                            searchOptionAreaNode.innerHTML = htmlStr;
-                        })
+                if (searchBarNode.value.trim()!=="") {
+                    searchSong(searchBarNode.value);
+                }
+                else{
+                    renderingHotSearch();
                 }
             }
         }
@@ -583,9 +616,9 @@
 
     function changePlaylistFetch(id) {
         fetch('http://www.huishiguang.com:3000/song/detail?ids=' + id, {
-                method: "get",
-                mode: "cors"
-            })
+            method: "get",
+            mode: "cors"
+        })
             .then(function (r) {
                 return r.json()
             }).then(function (data) {
@@ -677,6 +710,8 @@
         frontDescriptionNode.scrollTop = 0;
         let node = document.getElementById("frontPanel");
         node.style.left = "0%";
+        let mainAreaBoxNode = document.getElementById("mainAreaBox");
+        mainAreaBoxNode.style.left="-33%";
     }
 
     function rightRoll(id) {
