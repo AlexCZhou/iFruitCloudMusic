@@ -2,4 +2,4 @@
 
 **This repository is my Front-end course homework.**
 
-I used the [interface](https://github.com/Binaryify/NeteaseCloudMusicApi) written by my teacher. 
+I'm useing this [interface](https://github.com/Binaryify/NeteaseCloudMusicApi) 
