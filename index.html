@@ -271,11 +271,12 @@
     let isFullPlayer = false;
     initPage();
 
-    fetch('http://www.huishiguang.com:3000/top/playlist?limit=16&order=hot', {
+    fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/top/playlist?limit=16&order=hot', {
         method: "get",
         mode: "cors"
     })
         .then(function (r) {
+            // console.log(r)
             return r.json()
         })
         .then(function (data) {
@@ -294,7 +295,7 @@
                 temp.innerHTML = strHtml;
             }
         });
-    fetch('http://www.huishiguang.com:3000/album/newest', {
+    fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/album/newest', {
         method: "get",
         mode: "cors"
     })
@@ -317,7 +318,7 @@
                 temp.innerHTML = strHtml;
             }
         });
-    fetch('http://www.huishiguang.com:3000/personalized?limit=16', {
+    fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/personalized?limit=16', {
         method: "get",
         mode: "cors"
     })
@@ -341,7 +342,7 @@
                 temp.innerHTML = strHtml;
             }
         });
-    fetch('http://www.huishiguang.com:3000/album?id=81917', {
+    fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/album?id=81917', {
         method: "get",
         mode: "cors"
     })
@@ -351,7 +352,7 @@
             renderingFrontPage(data.album.picUrl, data.album.description, data.album.name, data.album.artist.name,
                 data.songs);
         })
-    fetch('http://www.huishiguang.com:3000/search/hot', {
+    fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/search/hot', {
         method: "get",
         mode: "cors"
     })
@@ -389,7 +390,7 @@
         searchSong(name);
     }
     function searchSong(name) {
-        fetch('http://www.huishiguang.com:3000/search?keywords=' + name, {
+        fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/search?keywords=' + name, {
             method: "get",
             mode: "cors"
         })
@@ -516,7 +517,7 @@
     }
 
     function getDiskInfo(id) { //获取歌单详情信息，直接渲染并转跳
-        fetch('http://www.huishiguang.com:3000/playlist/detail?id=' + id, {
+        fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/playlist/detail?id=' + id, {
             method: "get",
             mode: "cors"
         })
@@ -530,7 +531,7 @@
     }
 
     function getAlbumInfo(id) { //获取专辑的详细信息，直接渲染进上层并转跳
-        fetch('http://www.huishiguang.com:3000/album?id=' + id, {
+        fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/album?id=' + id, {
             method: "get",
             mode: "cors"
         })
@@ -615,7 +616,7 @@
     }
 
     function changePlaylistFetch(id) {
-        fetch('http://www.huishiguang.com:3000/song/detail?ids=' + id, {
+        fetch('https://netease-cloud-music-api-eosin-ten.vercel.app/song/detail?ids=' + id, {
             method: "get",
             mode: "cors"
         })
